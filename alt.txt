@@ -1,0 +1,29 @@
+function proveriKvadrat(velikiKvadrat, maliKvadrat) {
+  const pozicija = pozicija().split(" ");
+
+  const suprotanOblik = pozicija[velikiKvadrat][0] === "x" ? "o" : "x";
+  const p = pozicija[velikiKvadrat].substring(2);
+  p[maliKvadrat] = pozicija[velikiKvadrat].toUpperCase();
+
+  if (/XXX....../.test(p) || /...XXX.../.test(p) || /......XXX/.test(p) || /X..X..X../.test(p) || /.X.X.X./.test(p) || /..X..X..X/.test(p) || /X...X...X/.test(p) || /..X.X.X../.test(p))
+    pozicija[velikiKvadrat] = "X=" + p;
+  else if (/OOO....../.test(p) || /...OOO.../.test(p) || /......OOO/.test(p) || /O..O..O../.test(p) || /.O.O.O./.test(p) || /..O..O..O/.test(p) || /O...O...O/.test(p) || /..O.O.O../.test(p))
+    pozicija[velikiKvadrat] = "O=" + p;
+  else pozicija[velikiKvadrat] = "-=" + p;
+
+  if (pozicija[maliKvadrat][0] === "X" || pozicija[maliKvadrat][0] === "O"){
+    for(let i = 0; i < 9; i++) {
+      if(pozicija[i][0] !== "X" && pozicija[i][0] !== "O")
+        pozicija[i] = suprotanOblik + pozicija[i].substring(1);
+    }
+  }
+  else {
+    for(let i = 0; i < 9; i++) {
+      if(pozicija[i][0] !== "X" && pozicija[i][0] !== "O")
+        pozicija[i] = '-' + pozicija[i].substring(1);
+    }
+    pozicija[maliKvadrat0 ] = suprotanOblik + pozicija[i].substring(1);
+  }
+
+  postaviPoziciju(pozicija.join(" "));
+}
