@@ -35,14 +35,14 @@ function proveriKvadrat(kvadrat) {
   if (kvadrat.classList.contains(potez)) potez = "oks";
   const kvadrati = kvadrat.parentElement.children;
 
-  if      (brojKvadrata([kvadrati[0], kvadrati[1], kvadrati[2]], potez) === 3) kvadrat.classList.add(potez);
-  else if (brojKvadrata([kvadrati[3], kvadrati[4], kvadrati[5]], potez) === 3) kvadrat.classList.add(potez);
-  else if (brojKvadrata([kvadrati[6], kvadrati[7], kvadrati[8]], potez) === 3) kvadrat.classList.add(potez);
-  else if (brojKvadrata([kvadrati[0], kvadrati[3], kvadrati[6]], potez) === 3) kvadrat.classList.add(potez);
-  else if (brojKvadrata([kvadrati[1], kvadrati[4], kvadrati[7]], potez) === 3) kvadrat.classList.add(potez);
-  else if (brojKvadrata([kvadrati[2], kvadrati[5], kvadrati[8]], potez) === 3) kvadrat.classList.add(potez);
-  else if (brojKvadrata([kvadrati[0], kvadrati[4], kvadrati[8]], potez) === 3) kvadrat.classList.add(potez);
-  else if (brojKvadrata([kvadrati[2], kvadrati[4], kvadrati[6]], potez) === 3) kvadrat.classList.add(potez);
+  if      (brojKvadrata([kvadrati[0], kvadrati[1], kvadrati[2]], potez) === 3) kvadrat.parentElement.classList.add(potez);
+  else if (brojKvadrata([kvadrati[3], kvadrati[4], kvadrati[5]], potez) === 3) kvadrat.parentElement.classList.add(potez);
+  else if (brojKvadrata([kvadrati[6], kvadrati[7], kvadrati[8]], potez) === 3) kvadrat.parentElement.classList.add(potez);
+  else if (brojKvadrata([kvadrati[0], kvadrati[3], kvadrati[6]], potez) === 3) kvadrat.parentElement.classList.add(potez);
+  else if (brojKvadrata([kvadrati[1], kvadrati[4], kvadrati[7]], potez) === 3) kvadrat.parentElement.classList.add(potez);
+  else if (brojKvadrata([kvadrati[2], kvadrati[5], kvadrati[8]], potez) === 3) kvadrat.parentElement.classList.add(potez);
+  else if (brojKvadrata([kvadrati[0], kvadrati[4], kvadrati[8]], potez) === 3) kvadrat.parentElement.classList.add(potez);
+  else if (brojKvadrata([kvadrati[2], kvadrati[4], kvadrati[6]], potez) === 3) kvadrat.parentElement.classList.add(potez);
 
   function brojKvadrata(kvadrati, potez) {
     return kvadrati.filter((kvadrat) => kvadrat.matches("." + potez)).length;
