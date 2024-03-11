@@ -14,8 +14,8 @@ maliKvadrati.forEach((maliKvadrat) => {
   maliKvadrat.addEventListener("click", function klik() {
     if (maliKvadrat.parentElement.classList.contains("potez-iks") || maliKvadrat.parentElement.classList.contains("potez-oks")) {
       maliKvadrat.classList.add(potez);
-      proveriKvadrat(maliKvadrat);
-      proveriKvadrat(maliKvadrat.parentElement);
+      proveriKvadrat(maliKvadrat, potez);
+      proveriKvadrat(maliKvadrat.parentElement, potez);
       resetujKvadrate();
       potez = potez === "iks" ? "oks" : "iks"; // promena potez
 
@@ -30,23 +30,16 @@ maliKvadrati.forEach((maliKvadrat) => {
 function aktivirajKvadrat(kvadrat, potez) {
   kvadrat.classList.add("potez-" + potez);
 }
-function proveriKvadrat(kvadrat) {
-  let potez = "iks";
-  if (kvadrat.classList.contains("oks")) potez = "oks";
-  const kvadrati = kvadrat.parentElement.children;
-
-  if (brojKvadrata([kvadrati[0], kvadrati[1], kvadrati[2]], potez) === 3) kvadrat.parentElement.classList.add(potez);
-  else if (brojKvadrata([kvadrati[3], kvadrati[4], kvadrati[5]], potez) === 3) kvadrat.parentElement.classList.add(potez);
-  else if (brojKvadrata([kvadrati[6], kvadrati[7], kvadrati[8]], potez) === 3) kvadrat.parentElement.classList.add(potez);
-  else if (brojKvadrata([kvadrati[0], kvadrati[3], kvadrati[6]], potez) === 3) kvadrat.parentElement.classList.add(potez);
-  else if (brojKvadrata([kvadrati[1], kvadrati[4], kvadrati[7]], potez) === 3) kvadrat.parentElement.classList.add(potez);
-  else if (brojKvadrata([kvadrati[2], kvadrati[5], kvadrati[8]], potez) === 3) kvadrat.parentElement.classList.add(potez);
-  else if (brojKvadrata([kvadrati[0], kvadrati[4], kvadrati[8]], potez) === 3) kvadrat.parentElement.classList.add(potez);
-  else if (brojKvadrata([kvadrati[2], kvadrati[4], kvadrati[6]], potez) === 3) kvadrat.parentElement.classList.add(potez);
-
-  function brojKvadrata(kvadrati, potez) {
-    return kvadrati.filter((kvadrat) => kvadrat.matches("." + potez)).length;
-  }
+function proveriKvadrat(kvadrat, potez) {
+  kvadrat = kvadrat.parentElement;
+  if (kvadrat.querySelectorAll(":scope > .gore." + potez).length === 3) kvadrat.classList.add(potez);
+  else if (kvadrat.querySelectorAll(":scope > .centar." + potez).length === 3) kvadrat.classList.add(potez);
+  else if (kvadrat.querySelectorAll(":scope > .dole." + potez).length === 3) kvadrat.classList.add(potez);
+  else if (kvadrat.querySelectorAll(":scope > .levo." + potez).length === 3) kvadrat.classList.add(potez);
+  else if (kvadrat.querySelectorAll(":scope > .sredina." + potez).length === 3) kvadrat.classList.add(potez);
+  else if (kvadrat.querySelectorAll(":scope > .desno." + potez).length === 3) kvadrat.classList.add(potez);
+  else if (kvadrat.querySelectorAll(`:scope > .gore.levo.${potez}, :scope > .centar.sredina.${potez}, :scope > .dole.desno.${potez}`).length === 3) kvadrat.classList.add(potez);
+  else if (kvadrat.querySelectorAll(`:scope > .gore.desno.${potez}, :scope > .centar.sredina.${potez}, :scope > .dole.levo.${potez}`).length === 3) kvadrat.classList.add(potez);
 }
 function resetujKvadrate() {
   document.querySelectorAll(".potez-iks, .potez-oks").forEach((kvadrat) => {
@@ -55,11 +48,24 @@ function resetujKvadrate() {
   });
 }
 function sledeciKvadrati(maliKvadrat) {
-  let potez = "iks";
-  if (maliKvadrat.classList.contains(potez)) potez = "oks";
+  let velikiKvadrat;
+  if (maliKvadrat.classList.contains("gore")) {
+    if (maliKvadrat.classList.contains("levo")) velikiKvadrat = document.querySelector(".veliki.kvadrat.gore.levo");
+    else if (maliKvadrat.classList.contains("desno")) velikiKvadrat = document.querySelector(".veliki.kvadrat.gore.desno");
+    else velikiKvadrat = document.querySelector(".veliki.kvadrat.gore.sredina");
+  } else if (maliKvadrat.classList.contains("centar")) {
+    if (maliKvadrat.classList.contains("levo")) velikiKvadrat = document.querySelector(".veliki.kvadrat.centar.levo");
+    else if (maliKvadrat.classList.contains("desno")) velikiKvadrat = document.querySelector(".veliki.kvadrat.centar.desno");
+    else velikiKvadrat = document.querySelector(".veliki.kvadrat.centar.sredina");
+  } else {
+    if (maliKvadrat.classList.contains("levo")) velikiKvadrat = document.querySelector(".veliki.kvadrat.dole.levo");
+    else if (maliKvadrat.classList.contains("desno")) velikiKvadrat = document.querySelector(".veliki.kvadrat.dole.desno");
+    else velikiKvadrat = document.querySelector(".veliki.kvadrat.dole.sredina");
+  }
 
-  const velikiKvadrat = document.querySelector(`.veliki.kvadrat[data-index="${maliKvadrat.dataset.index}"]`);
-
+  let potez;
+  if (maliKvadrat.classList.contains("iks")) potez = "oks";
+  else potez = "iks";
   if (velikiKvadrat.classList.contains("iks") || velikiKvadrat.classList.contains("oks") || velikiKvadrat.querySelectorAll(".iks, .oks").length === 9) {
     document.querySelectorAll(".veliki.kvadrat:not(.iks, .oks)").forEach((velikiKvadrat) => aktivirajKvadrat(velikiKvadrat, potez));
   } else aktivirajKvadrat(velikiKvadrat, potez);
