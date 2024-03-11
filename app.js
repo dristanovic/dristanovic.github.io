@@ -32,10 +32,10 @@ function aktivirajKvadrat(kvadrat, potez) {
 }
 function proveriKvadrat(kvadrat) {
   let potez = "iks";
-  if (kvadrat.classList.contains(potez)) potez = "oks";
+  if (kvadrat.classList.contains("oks")) potez = "oks";
   const kvadrati = kvadrat.parentElement.children;
 
-  if      (brojKvadrata([kvadrati[0], kvadrati[1], kvadrati[2]], potez) === 3) kvadrat.parentElement.classList.add(potez);
+  if (brojKvadrata([kvadrati[0], kvadrati[1], kvadrati[2]], potez) === 3) kvadrat.parentElement.classList.add(potez);
   else if (brojKvadrata([kvadrati[3], kvadrati[4], kvadrati[5]], potez) === 3) kvadrat.parentElement.classList.add(potez);
   else if (brojKvadrata([kvadrati[6], kvadrati[7], kvadrati[8]], potez) === 3) kvadrat.parentElement.classList.add(potez);
   else if (brojKvadrata([kvadrati[0], kvadrati[3], kvadrati[6]], potez) === 3) kvadrat.parentElement.classList.add(potez);
