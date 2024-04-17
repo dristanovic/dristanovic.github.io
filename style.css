@@ -104,7 +104,6 @@ body {
   transform: translate(-50%, -50%);
   border: var(--velicina) solid var(--oks-boja);
 }
-
 .veliki.kvadrat.oks::before {
   z-index: 1;
   border-width: calc(var(--velicina) * 2);
